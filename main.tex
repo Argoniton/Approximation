@@ -1,0 +1,231 @@
+\begin{proof}
+	A_h=A_{0h}+\diag(c_i) où A_{0h}=\mqty(\frac2{h^2}&-\frac1{h^2}&0&0&\cdots&0\\-\frac1{h^2}&\frac2{h^2}&1\frac1{h^2}0&\cdots&0)\\0&-\frac1{h^2}&\frac2{h^2}&-\frac1{h^2}&\cdots&0\\0&\dots&\dots&0&0&\frac2{h^2}&-\frac1{h^2}\\0&...&0&-\frac1{h^2}&\frac2{h^2})
+
+\diag(c_i)=\mdiag{c_1,c_2...c_{N-1},c_N}
+
+A+h inversible et A_{0h} inversible (A_{0h}=A_h dans le cas c_i =0 \forall i)
+
+On a: A_{0h}\dmo-A_h\dmo=A_{0h}\dmo A_h A_h\dmo -A_{0h}\dmoA_{0h}A_h\dmo=A_{0h}\dmo(A_h-A_{0h})A_h\dmo
+
+c_i≥0 \forall i => A_h-A_{0h}=\diag(c_i)≥0
+
+De plus: A_h et A_{0h} monotones => A_h\dmo≥0 et A\dmo_{0h}≥0. D'où : A_{0h}\dmo≥A_h\dmo≥0. On va montrer que \norm{A_{0h}\dmo}_∞≤\frac18 et donc \norm{A_h\dmo}_∞≤\frac 18.
+
+\begin{remark}
+	\norm{B}_∞=\sup_{\norm{v}=1}\norm{Bv}_∞=\sup_{\norm{v}_{\R^N}=1}\max_{i=1,..,N}|(Bv)_i|=\sup_{\norm{v}_∞=1}\max_{i=1,...,N}|∑_{j=1}^nb_{ij}v_j}|≤\sup_{\norm{v}_∞=1}\max_{i=1,...,N}∑_{j=1}^N|b_{ij}||v_j|≤\sup_{\norm{v}_∞=1}\max_{i=1,...,N}∑_{j=1}^N∑_{j=1}^N|b_{ij}|\norm{v}_∞=\max_{i=1,...,N}∑_{j=1}^N|b_{ij}|
+	
+	En fait on a égalité: \norm{B}_∞=\max_{i=1,...,N}∑_{j=1}^N|b_{ij}. 
+\end{remark}
+
+	\norm{A_{h}\dmo}_∞=\max_{i=1,...,N}∑_{j=1}^N(A_h\dmo)_{ij}≤\max_{i=1,..,N}∑_{j=1}^N(A_{0h}\dmo)_{ij}=\norm{A_{0h}\dmo}_∞=\max∑_{j=1}^N(A_{0h}\dmo)_{ij}\times 1=\max_{i=1,...,N}A_{0h}\dmo e)_i=\norm{A_{0h}\dmo e\}_∞ où e=\vc{1\\\vdots\\1}.
+	
+	Soit d=A_{0h}\dmo e i.e. e=A_{0h}d (**). Si on discretise
+	
+	\[\left\{\mqty{-u''=1, (0,1)\\u(0)=u(1)=0}}\right.\]
+	
+	On arrive à (**) (i.e. ici b_h=\vc{1\\\vdots\\1}=e et U_h=d ici la solution exacte u est donne par μ(x)=\frac{x(1-x)}{2} => u^{(4)}=0 et donc la solution (U_h=d) coincide avec le vecteur (u(x_i))_{i=1,...,N} d_i=u(x_i)=u(ih)=\frac{ih(1-ih)}{2}\ \forall i=1,...,N)
+	
+	Donc \norm{d}_∞=\max_{i=1,...,N}|d_i|=\max_{i=1,...,N}(\frac{ih(1-ih)}2)≤\sup_{x\in[0,1]}\frac{x(1-x)}2=\frac18=μ(\frac 12).
+\end{proof}
+\section{Erreur de discretisation en $x_i$} % (fold)
+\label{sec:erreur_de_discretisation_en_x_i}
+e_i=u(x_i)-u_i, \forall i=1,...,N.
+
+\begin{theorem}
+	Soit u solution exacte de -u''+c(x)u=f(x),  (0,1) u(0)=u(1)=0. Supposons u\in C^{(4)}([0,1]). Soit U_h la solution de probleme discretisé (A_hU_h=b_h). Alors \max_{i=1,...,N}|e_i|≤\frac1{96}\norm{u^{4}}_∞h^2.
+\end{theorem}
+\begin{proof}
+	on a (\tilde U_h=\vc{u(x_1)\\u(x_2)\\\vdots\\u(x_N)}) \norm{\tilde U_h-U_h}_∞=\max_{i=1,...,N}|(\tilde U_h-U_h)_i|=\max_{i=1,...N}|e_i| or A_h(\tilde U_h-U_h)=R (erreur de consistance).
+	
+	Donc: \norm{\tilde U_h-U_h}_∞=\norm{A_h\dmo R}_∞≤\norm{A_h\dmo}_∞\norm{R}_∞≤\frac18\frac1{12}\  ?\sup_{t\in(0,1)}|u^{(4)}(t)|h^2?
+\end{proof}
+
+\begin{exercise}
+	Cas des conditions de Neumann. Écrire (SN) - scheme numérique - pour -u''+c(x)u=f \ch (0,1) u'(0)=α u'(1)=β 
+	
+	À titre d'exercise, traiter le cas:
+	\[\left\{\mqty{-u''+c(x)u=f ch (0,1) \\ u(0)=0\\u'(1)=β}\right.\]
+	
+	
+		\begin{system}
+	
+			\frac1{h^2}(2u_i-u_{i-1}-u_{i+1}+c_ih^2u_i)=f_i\ i=1,...,N\\
+			\frac{u_1-u_0}h=α \\
+			\frac{u_{N+1}-u_{N}}h=β
+		\end{system}
+	
+	Ecriture matricielle de (SN) : 
+	
+	(SN) <=> A_hU_h=B_h
+	
+	U_{h}=\vc{u_0\\u_1\\\vdots\\u_N\\u_{N+1}}\in\R^{N+2}
+	B_h=\vc{α\\b_1\\\vdots\\b_n\\β}\in\R^{N+2}.
+	
+	A_h\in M_{N+2}(\R) avec
+	
+	A_h=\mqty{
+	-\frac 1h & \frac1h                   & 0                          &    &   & \cdots & 0                         & 0       \\
+-1        & 2+c\_1h\textasciicircum 2 & 0                          &    &   & \cdots &                           &         \\
+0         & -1                        & 2+c\_2\textasciicircum 2-1 & -1 & 0 &        &                           &         \\
+          &                           &                            &    &   &        &                           &         \\
+          &                           &                            &    &   & -1     & 2+c\_Nh\textasciicircum 2 & -1      \\
+          &                           &                            & 0  & 0 & 0      & -\frac1h                  & \frac1h
+}\in M_{N+2}(\R)
+
+Eorme eliminée u_0 et u_{N+1}
+
+i=1 => \frac1{h^2}(2u_1-u_0-u_2+c_1h^2u_1)=f_1 => \frac{u_0}{h^2}=\frac1{h^2}(2u_1-u_2+c_1h^2u_1)-b_1
+
+\frac{u_0}{h}=\frac1h(2u_1-u_2+c_1h^2u_1)-hb_1
+
+d'où (1) <=> \frac{u_1}{h}-\frac1h(2u_1-u_2+c_1h^2u_1)+hf_1=α
+
+<=> (1+c_1h^2)u_1-u_2=h^2f_1-αh on elimine u_{N+1} des (2):
+
+i=N => \frac1{h^2}(2u_N-u_{N-1}-u_{N+1}+c_Nh^2u_N)=b_N
+
+=> u_{N+1}=(2u_N-u_{N-1}+c_Nh^2u_N)-h^2f_N
+
+\frac1{h^2}(2u_i-u_{i-1}-u_{i+1}+c_ih^2u_i)=f_i, i=1,...,N
+
+<=> -u_{N-1}-u_N+c_Nh^2u_n=-βh+h^2f_N
+
+U_h=\vc{u_1\\u_2\\\vdots\\u_N}, B_h=\vc{h^2f_1-αh\\b_1\\\vdots\\b_{N-1}\\βh+h^2b_N}
+
+Ici A_h=\mqty{
+1+c\_1h\textasciicircum 2      & -1                                                               & 0                                                                & \cdots &    \\
+-\frac1\{h\textasciicircum 2\} & \frac2\{h\textasciicircum 2\}+c\_2-\frac1\{h\textasciicircum 2\} & 0                                                                & \cdots &    \\
+0                              & -\frac1\{h\textasciicircum 2\}                                   & \frac2\{h\textasciicircum 2\}+c\_3-\frac1\{h\textasciicircum 2\} &        &    \\
+                               &                                                                  &                                                                  &        &    \\
+}
+\end{exercise}
+% section erreur_de_discretisation_en_x_i (end)
+\chapter{Formulation variateorinelle des problèmes aux limites} % (fold)
+\label{cha:formulation_variateorinelle_des_problemes_aux_limites}
+
+Introduction:
+\left\{\mqty{-\delta u(x)=f(x)\text{ dans $Ω$ ouvert "regulier" de $\R^d$}\\u=0\text{ sur }\partial Ω}\right.
+
+"f donnée" 
+
+\delta u=∑_{i=1}^n\pdv[2]{u}{x_i}
+
+-u''=f dans (0,1) u(0)=u(1)=0
+
+-u''φ(x)=f(x)φ(x) => ∫_0^1-u''φ(x)=∫_0^1f(x)φ(x)
+
+∫_0^1v'φ\dd{x}=[vφ]_0^1-∫_0^1vφ'\dd{x}
+[-u'φ]^1_0+∫_0^1u'φ'\dd{x}=∫_0^1f(x)φ(x)\dd{x}
+
+∫_0^1u'φ'\dd{x}=∫_0^1f(x)φ(x)\dd{x}\ \forall φ, φ(0)=φ(1)
+
+f\in L^2(0,1)
+
+(1) => ∫_Ω-\delta uφ\dd{x}=∫_Ωfφ\dd{x}.
+
+Formule de Green: ∫_Ω-\delta uφ\dd{x}=∫_Ω\nabla u\nabla φ\dd{x}-∫_{\partial Ω}\pdv{u}{n}φ\dd{σ}.
+
+\pdv{u}{n}(x)=\nabla n(x)•\vect n=\pdv{u}{x_1}(x)\cos(\vect n,x_1)+...+\pdv{u}{x_n}(x)\cos(\vect n, x_n)
+-- Formule Green
+
+Donc si φ=0 sur le bord \partial Ω.
+
+(1) => ∫_Ω\nabla u\nabla φ\dd{x}=∫_Ωfφ\dd{x} \forall φ\in L^2(Ω), \nabla φ\in (L^2(Ω))^n
+
+Definition
+(2) s'appelle formulation faible de e'équation (1) et u solution de (2) est appelé solution faible de (1)
+
+∫_0^1 u'φ'\dd{x}=\expval{-u'',φ}
+
+Outils pour étudier la formulation faible: Espace Sobolev:
+
+H^1(Ω):=\{u\in L^2(Ω), \nabla u\in(L^2(Ω))^n\}=\{u\in L^2(Ω),\pdv{u}{x_i}\in L^2(Ω)\ \forall i=1,...,n\}
+
+H^2(Ω):=\{u\in L^2(Ω), \nabla u\in (H'(Ω))^n\}=\{u\in L^2(Ω), \pdv{u}{x_i}, \pdv{u}{x_i}{x_j}\in L^2(Ω), \forall i,j\}
+
+H^m(Ω):=\{u\in L^2(Ω), \nabla u\in (H^{n-1}(Ω))^n\}
+
+\begin{remark}
+	H^0(Ω)=L^2(Ω)
+\end{remark}
+
+\begin{theorem}
+	H^1(Ω) est un espace de Hilbert pour le problèmes defini par:
+	a(u,v)=∫_Ωuv\dd{x}+∫_Ω\nabla u\nabla v\dd{x}=∫_Ωuv\dd{x}+∑_{i=1}^n∫_Ω\pdv{u}{x_i}\pdv{v}{x_i}\dd{x}
+\end{theorem}
+
+Norme associée au problème: \norm{u}_{H'(Ω)}=\sqrt{a(u,u)}=\sqrt{∫_Ωu^2\dd{x}+∑_i∫_Ω(\pdv{u}{x_i})^2\dd{x}}
+
+\begin{proof}
+	Montrons que H^2(Ω) est complet pour cette norme. 
+\end{proof}
+Soit (u_m)_m \in H^1(Ω) de Cauchy. \forall ε>0 \exists n_0\in\N: n,p≥n_0 => \norm{u_n-u_m}^2_{H^1}≤ε => ∫_Ω(u_n-u_m)^2\dd{x}+∫_Ω|\nabla u_n-\nabla u_m|^2\dd{x}\to0, n,m\to∞
+
+<=> ∫_Ω(u_n-u_m)^2\dd{x}\to 0. n,p\to ∞. et ∫_Ω|\nabla u_n-\nabla u_m|^2\dd{x}\to 0, n,p\to ∞.
+
+=> (u_m)_m et (\nabla u_m)_m est de Cauchy dans L^2(Ω) et (L^2(Ω)).
+
+Comme L^2(Ω) est complet, \exists u\in L^2(Ω) t.q. u_m\to u dans L^2(Ω) c-à-d ∫_Ω|u_m-u|^2\dd{x}\to 0, m\to ∞. \existsξ\in (L^2(Ω))^n
+
+∫_Ω|\nabla u_m-ξ|^2\dd{x}\to 0, m\to ∞.
+
+u_m\to u dans L^2(Ω) => \pdv{u_m}{x_i}\to\pdv{u}{x_i} dans D'(Ω) (au sens des distributions)
+
+\pdv{u_m}{x_i}\fto \pdv{u}{x_i} dans D'(Ω) <=> ∫_Ω\pdv{u_m}{x_i}φ\dd{x} -> ∫_Ω\pdv{u}{x_i}φ\dd{x}, \forall φ\in D(Ω).
+
+D(Ω)=C_0^∞(Ω)=\{u\in C^∞(Ω), \supp u= K\subsetΩ, K -compact\}
+
+Montrons (*):
+∫_Ω\pdv{u_m}{x_i}φ\dd{x}=-∫_Ωu_m\pdv{φ}{x_i}\dd{x}\to-∫_Ωu\pdv{φ}{x_i}\dd{x}\ \forall i
+
+car |-∫_Ωu_m\pdv{φ}{x_i}+∫_Ωu\pdv{φ}{x_i}\dd{x}|=|∫_Ω(u-u_m)\pdv{φ}{x_i}\dd{x}|≤(∫_Ω(u-u_m)^2\dd{x})^{\frac 12}(∫_Ω(\pdv{φ}{x_i})^2\dd{x})^{\frac12}\to 0.
+
+\begin{remark}
+	t_m\to t dans L^(Ω) => t_m\fto t dans D'(Ω).
+	
+	T\in D'(Ω) <=> T forme lineaire continue sur D(Ω).
+	
+	T:D(Ω)->\R
+	φ|->T(φ)=\expval{T,φ}
+		
+	Si T=f\in L^2(Ω)\ \expval{T,φ}=∫_Ωfφ\dd{x}
+	
+	\expval{T,φ_1+φ_2}=∫_Ωf(φ_1+φ_2)\dd{x}
+	
+	φ_m\to φ, n\to ∞ <=> \sup_{x\in Ω}|φ_n(x)-φ(x)|\to 0 
+	
+	\sup_{x\in Ω}|D^αφ_n-D^αφ|\to 0
+	m\to∞
+	
+	φ_m\to φ sur D(Ω) => T(φ_m)=∫_Ωf φ_n\dd{x}\to T(φ)=∫_Ωfφ\dd{x}
+	
+	|∫_Ωfφ\dd{x}-∫_Ωfφ_n\dd{x}|≤\norm{f}_{L^2(Ω)}\norm{φ-φ_n}_{L^2(Ω)}
+	
+	\norm{φ-φ_m}^2_{L^2(Ω)}=∫_Ω|φ-φ_m|^2\dd{x}≤\sup_{x\in Ω}|φ-φ_m|∫_Ω\dd{x}
+	
+	\nabla u_m\to ξ dans (L^2(Ω))^n donc \pdv{u_m}{x_i}\to ξ_i dans L^2(Ω) donc \pdv{u_m}{x_i} \fto ξ_i, D'(Ω) d'où ξ_i=\pdv{u}{x_i}\in L^2(Ω) \forall i=1,...,n et donc u\in H^1(Ω).
+	
+\end{remark}
+
+\begin{definition}
+	H_0^1(Ω)=\overline{D(Ω)} dans H^1(Ω). De u\in H_0^1(Ω), \exists(u_p)\in D(Ω) top \norm{u-u_p}_{H'(Ω)}\to0, p\to∞.
+\end{definition}
+
+Autre caractérisation de H_0^1(Ω): H_0^1(Ω)=\{u\in H'(Ω), u=0 sur \partial Ω\}
+% chapter formulation_variateorinelle_des_problemes_aux_limites (end)
+
+
+
+% MISSED missed 2 TD or lectures...
+
+
+% section rappels_sur_le_fonctions_convexes_en_dimension_1 (end)
+% chapter conditions_d_optimalite (end)
+
+% start approximation lexture SILI Ali 12 Février (February) (2 lectures)
+
+% end approximation lexture SILI Ali 12 Février (February)
+
+
+
+
